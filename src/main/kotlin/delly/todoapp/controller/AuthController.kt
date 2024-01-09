@@ -6,10 +6,7 @@ import delly.todoapp.service.AuthService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
@@ -33,6 +30,17 @@ class AuthController(private val authService: AuthService) {
     
     val user = authService.login(body)
     return ResponseEntity.ok(user)
+    
+  }
+  
+  @GetMapping("/jwt")
+  fun jwtTest(@RequestHeader("Authorization") auth: String): ResponseEntity<Any> {
+    
+    val token = auth.split("Bearer ")[1]
+    val userId = authService.verifyToken(token)
+    println(token)
+    
+    return ResponseEntity.ok(userId)
     
   }
   

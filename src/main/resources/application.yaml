@@ -16,3 +16,7 @@ logging:
     org.springframework.web: DEBUG
     org.hibernate: ERROR
 
+
+
+jwt:
+  secret: TodoApplicationServerJwtSecretKey

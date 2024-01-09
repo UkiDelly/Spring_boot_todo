@@ -24,21 +24,36 @@ allOpen {
   annotations("javax.persistence.Entity", "javax.persistence.Embeddable", "javax.persistence.MappedSuperclass")
 }
 
-noArg{
+noArg {
   annotations("javax.persistence.Entity", "javax.persistence.Embeddable", "javax.persistence.MappedSuperclass")
 }
 
 dependencies {
-  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+  
+  // Spring
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springframework.boot:spring-boot-starter-web")
-  implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+  developmentOnly("org.springframework.boot:spring-boot-devtools")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
   implementation("org.springframework.boot:spring-boot-starter-security")
-  testImplementation("org.springframework.security:spring-security-test")
-  developmentOnly("org.springframework.boot:spring-boot-devtools")
+  
+  // Serialization
+  implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+  
+  // Database
+  implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   runtimeOnly("org.postgresql:postgresql")
+  
+  // JWT
+  implementation("io.jsonwebtoken:jjwt-api:0.12.3")
+  runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.3")
+  runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")
+  
+  
+  // Test
+  testImplementation("org.springframework.security:spring-security-test")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
+  
 }
 
 tasks.withType<KotlinCompile> {
