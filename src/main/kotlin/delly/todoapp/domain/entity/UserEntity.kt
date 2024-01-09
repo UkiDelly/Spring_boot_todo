@@ -25,6 +25,9 @@ class UserEntity(
   val createdAt: LocalDateTime = LocalDateTime.now(),
   
   ) {
+  
+  // 변경이 가능한 property를 var로 선언하고, protected set으로 변경을 막는다.
+  // 변경이 불가능한 property를 val로 선언한다.
   @Column
   var name: String = name
     protected set
