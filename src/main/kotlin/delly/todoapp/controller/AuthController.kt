@@ -19,7 +19,8 @@ class AuthController(private val authService: AuthService) {
   @PostMapping("/register")
   fun register(
     @Valid
-    @RequestBody body: UserRegisterRequest
+    @RequestBody
+    body: UserRegisterRequest
   ): ResponseEntity<Any> {
     
     val user = authService.register(body)
