@@ -1,5 +1,6 @@
 package delly.todoapp.controller
 
+import delly.todoapp.domain.dto.UserLoginRequest
 import delly.todoapp.domain.dto.UserRegisterRequest
 import delly.todoapp.service.AuthService
 import jakarta.validation.Valid
@@ -25,6 +26,14 @@ class AuthController(private val authService: AuthService) {
     
     val user = authService.register(body)
     return ResponseEntity.status(HttpStatus.CREATED).body(user)
+  }
+  
+  @PostMapping("/login")
+  fun login(@Valid @RequestBody body: UserLoginRequest): ResponseEntity<Any> {
+    
+    val user = authService.login(body)
+    return ResponseEntity.ok(user)
+    
   }
   
 }

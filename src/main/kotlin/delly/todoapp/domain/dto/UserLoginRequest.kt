@@ -1,11 +1,14 @@
 package delly.todoapp.domain.dto
 
 import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.NotNull
 
 
-data class UserLoginRequests(
+class UserLoginRequest(
   
-  @Email
+  @field:Email
   val email: String,
+  
+  @field:NotNull
   val password: String
 )
