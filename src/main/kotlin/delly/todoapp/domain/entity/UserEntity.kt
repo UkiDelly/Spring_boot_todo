@@ -13,7 +13,7 @@ class UserEntity(
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Long? = null,
   
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   val email: String,
   
   name: String,
