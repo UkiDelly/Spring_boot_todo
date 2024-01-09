@@ -3,6 +3,7 @@ package delly.todoapp.controller
 import delly.todoapp.domain.dto.UserRegisterRequest
 import delly.todoapp.service.AuthService
 import jakarta.validation.Valid
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -21,8 +22,8 @@ class AuthController(private val authService: AuthService) {
     @RequestBody body: UserRegisterRequest
   ): ResponseEntity<Any> {
     
-    
-    return ResponseEntity.ok(body)
+    val user = authService.register(body)
+    return ResponseEntity.status(HttpStatus.CREATED).body(user)
   }
   
 }
