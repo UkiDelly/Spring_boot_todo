@@ -19,6 +19,15 @@ repositories {
   mavenCentral()
 }
 
+
+allOpen {
+  annotations("javax.persistence.Entity", "javax.persistence.Embeddable", "javax.persistence.MappedSuperclass")
+}
+
+noArg{
+  annotations("javax.persistence.Entity", "javax.persistence.Embeddable", "javax.persistence.MappedSuperclass")
+}
+
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
   implementation("org.springframework.boot:spring-boot-starter-validation")
