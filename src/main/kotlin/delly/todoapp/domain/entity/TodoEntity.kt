@@ -13,7 +13,8 @@ class TodoEntity(
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Long? = null,
   
-  content: String,
+  @Column(nullable = false)
+  var content: String,
   
   @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "creator_id", nullable = false)
@@ -22,16 +23,9 @@ class TodoEntity(
   @CreatedDate
   val createdAt: LocalDateTime = LocalDateTime.now(),
   
-  isDone: Boolean = false,
-) {
-  
-  @Column(nullable = false)
-  var content: String = content
-    protected set
-  
   @Column(name = "is_done", nullable = false)
-  var isDone: Boolean = isDone
-    protected set
+  var isDone: Boolean = false,
+) {
   
   
   fun toTodo(): Todo = Todo(
