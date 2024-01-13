@@ -59,4 +59,16 @@ class TodoController(private val jwtProvider: TokenProvider, private val todoSer
     return ResponseEntity.ok(updatedTodo)
   }
   
+  @DeleteMapping("{id}")
+  fun deleteTodo(
+    @PathVariable("id") id: Long,
+    @RequestHeader("Authorization") rawToken: String
+  ): ResponseEntity<Long> {
+    val accessToken = rawToken.split(" ")[1]
+    val userId = jwtProvider.validateToken(accessToken, "access")
+    val todoId = todoService.deleteTodoById(id, userId)
+    
+    return ResponseEntity.accepted().body(todoId)
+  }
+  
 }

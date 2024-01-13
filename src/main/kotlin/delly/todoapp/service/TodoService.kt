@@ -59,12 +59,14 @@ class TodoService(private val repository: TodoRepository, private val authReposi
   }
   
   @Transactional
-  fun deleteTodoById(todoId: Long, userId: Long) {
+  fun deleteTodoById(todoId: Long, userId: Long): Long {
     val todo = repository.findById(todoId).orElseThrow { throw NotFoundException("Todo not found") }
     if (todo.creator.id != userId) {
       throw ForbiddenException("작성자만 삭제할 수 있습니다.")
     }
     
     repository.deleteById(todoId)
+    
+    return todoId
   }
 }
