@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository
 interface TodoRepository : JpaRepository<TodoEntity, Long> {
   
   fun findAllByCreatorIs(creator: UserEntity): List<TodoEntity>
+  
+  fun findByIdAndCreatorId(todoId: Long, userId: Long): TodoEntity?
 }

@@ -23,4 +23,40 @@ class TodoController(private val jwtProvider: TokenProvider, private val todoSer
     
     return ResponseEntity.status(HttpStatus.CREATED).body(newTodo)
   }
+  
+  @GetMapping
+  fun getAllTodos(@RequestHeader("Authorization") rawToken: String): ResponseEntity<List<Todo>> {
+    val accessToken = rawToken.split(" ")[1]
+    val userId = jwtProvider.validateToken(accessToken, "access")
+    val todos = todoService.getTodos(userId)
+    
+    return ResponseEntity.ok(todos)
+  }
+  
+  @GetMapping("{id}")
+  fun getTodoById(
+    @RequestHeader("Authorization") rawToken: String,
+    @PathVariable("id") id: Long,
+    @RequestBody(required = true) content: String
+  ): ResponseEntity<Todo> {
+    val accessToken = rawToken.split(" ")[1]
+    val userId = jwtProvider.validateToken(accessToken, "access")
+    val todo = todoService.getTodo(id, userId)
+    
+    return ResponseEntity.ok(todo)
+  }
+  
+  @PatchMapping("{id}")
+  fun updateTodo(
+    @PathVariable("id") id: Long,
+    @RequestHeader("Authorization") rawToken: String,
+    @RequestBody(required = true) content: String
+  ): ResponseEntity<Todo> {
+    val accessToken = rawToken.split(" ")[1]
+    val userId = jwtProvider.validateToken(accessToken, "access")
+    val updatedTodo = todoService.updateTodoContent(id, content, userId)
+    
+    return ResponseEntity.ok(updatedTodo)
+  }
+  
 }

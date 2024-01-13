@@ -29,6 +29,12 @@ class TodoService(private val repository: TodoRepository, private val authReposi
   }
   
   @Transactional
+  fun getTodo(todoId: Long, userId: Long): Todo {
+    val todo = repository.findByIdAndCreatorId(todoId, userId) ?: throw NotFoundException("존재하지 않는 Todo입니다.")
+    return todo.toTodo()
+  }
+  
+  @Transactional
   fun updateTodoContent(todoId: Long, content: String, userId: Long): Todo {
     val todo = repository.findById(todoId).orElseThrow { throw NotFoundException("Todo not found") }
     if (todo.creator.id != userId) {
